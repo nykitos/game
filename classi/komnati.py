@@ -69,4 +69,3 @@ class secondroom (room):
     def enter(self,player):
         if self.ent==0:
             self.ent += 1
-            print('123')
