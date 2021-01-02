@@ -60,7 +60,7 @@ def fight(player,enemy):
 def atack(ofence, defence): #Бросок урона
     dmg = defence.defs + random(1,defence.dex) - random(1,ofence.str) - ofence.weap
     if dmg >= 0:
-        print(f'{ofence.name} не попал по {ofence.name}')
+        print(f'{ofence.name} не попал по {defence.name}')
     else:
         defence.hp += dmg
         print(f'{ofence.name} нанес {-dmg} урона, у {defence.name} осталось {defence.hp}хп')

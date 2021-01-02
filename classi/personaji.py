@@ -40,9 +40,9 @@ class npc:
 
 class plc (npc): #player character
 
-    def  __init__ (self,hp,name,defs,weap,stre,dex,pout,inv): #Характеристики
+    def  __init__ (self,hp,name,defs,weap,stre,dex,pout,inv,room): #Характеристики
         self.inv = inv #Инвентарь
-        self.room = 1 #Комната в которой находится игрок
+        self.room = room #Комната в которой находится игрок
 
         super().__init__(hp,name,defs,weap,stre,dex,pout)
 
@@ -52,7 +52,12 @@ class plc (npc): #player character
         for item in self.inv:
             i+=1
             print(f'{i}. {item}')
+        print('На тебе надето:')
 
+        if player.weap == 2:
+            print('Оружие: Ржавый меч')
+        else:
+            print('Оружие: Голые кулаки')
     def inventory (self):
 
         self.seeinventory()
