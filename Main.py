@@ -13,8 +13,6 @@ second  = k.secondroom()
 while True:
     if player.room == 1:
         first.enter(player)
-    if player.room == 2:
-        second.enter(player)
     else:
         print("кажется что здесь кончился сюжет, или произошла ошибка при переходе в другие комнаты, а по сему вот тебе гоблин")
         i =input()
