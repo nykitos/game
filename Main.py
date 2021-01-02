@@ -1,4 +1,4 @@
-from random import randint as random
+﻿from random import randint as random
 from os import system
 from classi import personaji as p
 from classi import komnati as k
@@ -10,7 +10,7 @@ gob = p.npc(10,'гоблин', 0, 2, 2, 2,1)
 
 first = k.firstroom()
 second  = k.secondroom()
-
+print('123')
 while True:
     if player.room == 1:
         first.enter(player)
