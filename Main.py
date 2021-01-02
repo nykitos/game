@@ -10,7 +10,6 @@ gob = p.npc(10,'гоблин', 0, 2, 2, 2,1)
 
 first = k.firstroom()
 second  = k.secondroom()
-print('123')
 while True:
     if player.room == 1:
         first.enter(player)
