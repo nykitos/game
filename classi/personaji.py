@@ -17,6 +17,7 @@ class npc:
         self.maxhp = hp #макс хп
         self.stat = [0,0]
 
+
     def heal (self,hp): #метод лечения
         self.hp += hp
         if self.hp > self.maxhp :
@@ -43,6 +44,7 @@ class plc (npc): #player character
     def  __init__ (self,hp,name,defs,weap,stre,dex,pout,inv,room): #Характеристики
         self.inv = inv #Инвентарь
         self.room = room #Комната в которой находится игрок
+        self.wname = 'Голые кулаки'
 
         super().__init__(hp,name,defs,weap,stre,dex,pout)
 
@@ -53,11 +55,8 @@ class plc (npc): #player character
             i+=1
             print(f'{i}. {item}')
         print('На тебе надето:')
+        print(f'Оружие: {self.wname}')
 
-        if player.weap == 2:
-            print('Оружие: Ржавый меч')
-        else:
-            print('Оружие: Голые кулаки')
     def inventory (self):
 
         self.seeinventory()
@@ -66,20 +65,42 @@ class plc (npc): #player character
             if a.isdigit():
                 a= int(a)
                 if a >=0 and a <=4:
-                    i = self.inv[a]
-                    if i == 'Пустой слот':
+                    item = self.inv[a]
+                    if item == 'Пустой слот':
                         print('Вы выбрали пустой слот, но там нечего нет!')
                         continue
-                    elif i == 'Странный мох' :
+                    elif item == 'Странный мох' :
                         self.stat[0] = 0
                         print('С вас снято отравление')
                         self.inv[a] = 'Пустой слот'
                         break
-                    elif i == 'Странный гриб':
+                    elif item == 'Странный гриб':
                         self.stat[0] = 5
                         print('Кажется это было плохим решением, вы отравлены')
                         self.inv[a] = 'Пустой слот'
                         break
+                    elif item == 'Ржавый меч': #Надо будет сделать из этого функцию для любого оружия но пока мне лень
+                        print('Сложно назвать это мечем, но в качестве дубинки сойдет')
+                        while True:
+                            inp = input('Вы хотите экипировать этот меч?\n1.Да\n2.Нет')
+                            if inp == '1':
+                                if weap != 0:
+                                    weapon = wname #Возвращение другого оружия в инвентарь, если оно там было
+                                    self.inv[a] = weapon
+
+                                self.save[0] = 1
+                                self.wname = item
+                                self.weap = 2
+
+                            if inp == '2':
+                                pass
+                            else:
+                                print('Неправельная комманда')
+                                continue
+                            break
+
+
+
 
 
             elif a == 'зелье':
@@ -104,20 +125,20 @@ class plc (npc): #player character
             if self.inv[a] != 'Пустой слот':
                 print(f'Тут уже лежит {self.inv[a]} ')
                 while True:
-                    q = input(f'Хотите ли вы заменить{self.inv[a]}\nда/нет')
-                    if q == 'да':
+                    q = input(f'Хотите ли вы заменить{self.inv[a]}\n1.да/2.нет\n')
+                    if q == '1':
                         self.inv[a] = q_item
                         system('cls||clear')
-                        return
-                    elif q== 'нет':
+                        break
+                    elif q == '2':
                         break
                     else:
-                        print('Неправильная команда')
+                        print('Неправильная команyда')
                         continue
             elif a < 4 and a>-1:
                 self.inv[a] = g_item
                 system('cls||clear')
-                return
+                break
             else :
-                print('Неправильная команда')
+                print('Неправильная командlа')
                 continue
