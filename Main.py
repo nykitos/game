@@ -5,7 +5,7 @@ from classi import komnati as k
 from classi import boy as b
 
 inventory = ['Пустой слот'] * 5
-player = p.plc(50,'игрок',0, 0,4,4,0, inventory,1) #Хп,Имя,Защита,Оружие,Кость силы,кость защиты,кол-во зелий
+player = p.plc(50,'игрок',0, 0,4,4,0, inventory,1) #Хп,Имя,Защита,Оружие,Кость силы,кость защиты,кол-во зелий,инвентарь,комната
 gob = p.npc(10,'гоблин', 0, 2, 2, 2,1)
 
 first = k.firstroom()
@@ -14,10 +14,13 @@ while True:
     if player.room == 1:
         first.enter(player)
         i =input()
+        system('cls||clear')
     elif player.room == 2:
         second.enter(player)
         i =input()
+        system('cls||clear')
     else:
+        system('cls||clear')
         print("кажется что здесь кончился сюжет, или произошла ошибка при переходе в другие комнаты, а по сему вот тебе гоблин")
         i =input()
         break
