@@ -62,6 +62,7 @@ class plc (npc): #player character
         self.seeinventory()
         while True:
             a = input('Выберите вещь')
+            system('cls||clear')
             if a.isdigit():
                 a = int(a)
                 if a >=0 and a <=4:
@@ -83,10 +84,13 @@ class plc (npc): #player character
                         print('Сложно назвать это мечем, но в качестве дубинки сойдет')
                         while True:
                             inp = input('Вы хотите экипировать этот меч?\n1.Да\n2.Нет')
+                            system('cls||clear')
                             if inp == '1':
                                 if self.weap != 0:
                                     weapon = self.wname #Возвращение другого оружия в инвентарь, если оно там было
                                     self.inv[a] = weapon
+                                else:
+                                    self.inv[a] = 'Пустой слот'
                                 self.wname = item
                                 self.weap = 2
 
@@ -99,15 +103,9 @@ class plc (npc): #player character
                             break
                     elif item == 'Ржавый ключ':
                         print('Просто ключ, нечего примечательного')
-                    
-
-
-
-
 
             elif a == 'зелье':
                 player.statchek()
-
                 if self.pout > 0:
                     self.pout -=1
                     self.heal(25)
@@ -115,6 +113,8 @@ class plc (npc): #player character
                 else:
                     print ('отсутствуют зелья')
                     continue
+            elif a == 'выход':
+                pass
 
             else :
                 print('Неправильный номер')
@@ -125,25 +125,30 @@ class plc (npc): #player character
         self.seeinventory()
         while True:
             a=input( f'Куда вы хотите положить {g_item}?\n')
+            system('cls||clear')
             if a.isdigit():
                 a = int(a)
                 if self.inv[a] != 'Пустой слот':
                     print(f'Тут уже лежит {self.inv[a]} ')
                     while True:
-                        q = input(f'Хотите ли вы заменить{self.inv[a]}\n1.да/2.нет\n')
+                        q = input(f'Хотите ли вы заменить{self.inv[a]}\n1.да\n2.нет\n')
+                        system('cls||clear')
                         if q == '1':
-                            self.inv[a] = q_item
-                            system('cls||clear')
-                            break
+                            self.inv[a] = g_item
                         elif q == '2':
-                            break
+                            pass
                         else:
                             print('Неправильная команда')
                             continue
-                elif a < 4 and a>-1:
+                        break
+                elif a <= 4 and a>-1:
                     self.inv[a] = g_item
-                    system('cls||clear')
-                    break
             else :
                 print('Неправильная команда')
                 continue
+            break
+    def invdel(self,r_item):
+        for item in self.inv:
+            if item == r_item:
+                item = 'Пустой слот'
+                break

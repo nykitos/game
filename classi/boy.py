@@ -7,6 +7,7 @@ def fight(player,enemy):
     print(f'На вас напал {enemy.name}')
     while (player.hp > 0) and (enemy.hp > 0):
         com = input('Ваши действия\n')
+        system('cls||clear')
         if com == 'атака':
             player.statchek()
             if player.hp <=0:

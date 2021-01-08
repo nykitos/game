@@ -1,5 +1,16 @@
-from os import system
-from random import randint as random
+if __name__ == '__main__':
+    from os import system
+    from random import randint as random
+    import personaji
+    import boy
+else:
+    from os import system
+    from random import randint as random
+    from classi import personaji
+    from classi import boy
+
+def clear(): # Очистка командной строки
+    system('cls||clear')
 
 class room():
     """Комнаты"""
@@ -25,13 +36,13 @@ class firstroom(room):
             while True:
 
                 inp = input('И что же ты будешь делать?\n1.Подойти и открыть дверь\n2.Не ну а что ты еще хотел, здесь больше нечего нет\n')
+                clear()
                 if inp == '1':
                     print('Дверь,что удивительно, легко открылась с небольшим скрипом и ты попадаешь в следующую комнату')
                     player.room = 2
                     break
 
                 elif inp == '2':
-                    system('cls||clear')
                     if self.try1 == 1:
                         print('Тут серьезно больше нечего нет')
                     elif self.try1 == 2:
@@ -49,15 +60,16 @@ class firstroom(room):
                         break
                     self.try1 += 1
 
-            if self.ent ==2:
-                print('Все те же голые стены и нечего интересного')
-                while True:
-                    imp = input('Что ты будешь делать?\n1.Покинуть эту комнату\n')
-                    if imp == '1':
-                        player.room= 2
-                        break
-                    else:
-                        print('Неправельная команда')
+        elif self.ent == 1:
+            print('Все те же голые стены и нечего интересного')
+            while True:
+                imp = input('Что ты будешь делать?\n1.Покинуть эту комнату\n')
+                clear()
+                if imp == '1':
+                    player.room= 2
+                    break
+                else:
+                    print('Неправельная команда')
 
 
 class secondroom (room):
@@ -65,47 +77,137 @@ class secondroom (room):
     def __init__(self):
         super().__init__()
         self.save = [0]*3 # 0 облутанный труп 1 цельность зеркала 2 открытие двери
+        self.try1 = 0
 
     def enter(self,player):
 
         if self.ent==0:
-            self.ent += 1
             print('Еще одна бесполезная комната, все что в ней есть это зеркало и сгнивший трупешник неудачливого путешественника, ах да, как же я мог ее забыть, дверь в следующую комнату')
             while True:
+                player.statchek()
                 imp = input('И что же ты будешь делать?\n1.Подойти к двери\n2.Подойти к трупу\n3.Посмотрется в зеркало\n4.Войти в предыдущую комнату\n')
+                clear()
                 if imp == '1':
-                    pass
+                    while True:
+                        clear()
+                        if self.save[2] == 0:
+                            print('Массивная железная дверь, с одной скважиной.')
+                            if "Ржавый ключ" in player.inv:
+                                while True:
+                                    inp = input('Кажется этот ключ от этой двери\nВставить ключ?\n1.Да\n2.Нет\n')
+                                    clear()
+                                    if inp == '1':
+                                        player.invdel('Ржавый ключ')
+                                        print('Ключ струдом проворачивается, слышны глухие щелчки старого механизма и похоже что дверь открылась,только вот теперь одна проблема, у двери нет ручки.')
+                                        self.save[2] = 1
+                                    elif inp == '2':
+                                        pass
+                                    else:
+                                        print('Неправельная команда')
+                                        continue
+                                    break
+                            else:
+                                while True:
+                                    inp = input('Судя по всему дверь заперта, и тебе нужен ключ чтобы ее открыть\n1.отойти от двери\n2.Попытатся открыть ее без ключа\n')
+                                    clear()
+                                    if inp == '1':
+                                        pass
+                                    elif inp == '2':
+                                        if self.try1 == 0:
+                                            print('Дверь не поддается')
+                                        elif self.try1 == 1:
+                                            print('дверь заперта, твои попытки ее растолкать нечем не оканчиваются, люфт минимален')
+                                        elif self.try1 == 2:
+                                            print('все еще ничего')
+                                        elif self.try1 == 3:
+                                            print('За дверью послышался какойто шум')
+                                        elif self.try1 == 4:
+                                            print('Откуда то сверху отваливается мох')
+                                            player.grab('Странный мох')
+                                        else:
+                                            print('Нечего не происходит')
+                                        self.try1 +=1
+                                        continue
+                                    else:
+                                        print('Неправельная команда')
+                                        continue
+                                    break
+                                break
+
+
+                        if self.save[2] == 1:
+                            print('Открытая дверь')
+                            while True:
+                                inp = input('1.Попытся открыть дверь\n2.Отойти от двери\n')
+                                clear()
+                                if inp == '1':
+                                    print('Струдом ты пальцами подцепляешь дверь, и вот открыв на пару сантиметров дверь ты чувствуешь толчек, кто то помогает открыть тебе дверь')
+                                    print('Обрадовавшись что это кто то разумный ты отходишь от двери')
+                                    print('Но после того как дверь открылась ты видишь лишь агрессивного гоблина с заточкой который срываясь с места бежит на тебя ')
+                                    i = input('')
+                                    clear()
+                                    gob = personaji.npc(10,'гоблин', 0, 2, 2, 4,1)
+                                    boy.fight(player,gob)
+                                    print('Даааа.... ты уже и не помнишь когда в последний раз всерьез бился с гоблином. Но теперь без оружия, брони и навыков они стали серьезными противниками.')
+                                    print('Впредь надо быть осторожней так как твой лекарь решил остался в таверне и больше некому залечить твои раны')
+                                    self.save[2] += 1
+                                elif inp == '2':
+                                    pass
+                                else:
+                                    print('Неправельная команда')
+                                break
+
+                        if self.save[2] == 2:
+                            while True:
+                                inp = input('Дверь теперь открыта\n1.Войти в дверь\n2.Отойти от двери\n')
+                                clear()
+                                if inp == '1':
+                                    player.room = 3
+                                elif inp == '2':
+                                    pass
+                                else:
+                                    print('Неправельная команда')
+                                    continue
+                                break
+                        break
+
+
+
+
+
                 elif imp == '2':#Трупешник и подъем меча
-                    system('cls||clear')
+                    clear()
                     while True:
                         pass
-                        if self.save[0] == 0: #До подема меча
+                        if self.save[0] == 0: #До подъема меча
                             print('Судя по всему это обычный труп, обычного новичка-путешественника пролежавшего очень долго')
                             print('К сожелению его кожаные доспехи давно сгнили и использовать их бесполезно, но вот его древний ржавый меч явно лучше чем голые руки')
                             while True:
                                 inp = input('И что же ты будешь делать?\n1.Взять меч\n2.Жизнь научила тебя что всякие валяющиеся мечи на полу с высокой вероятность могут быть прокляты, а по сему, лучше их не трогать.\n')
+                                clear()
                                 if inp == '1':
                                     player.grab('Ржавый меч')
                                     self.save[0] = 1
-                                    system('cls||clear')
+                                    clear()
                                 elif inp == '2':
                                     pass
                                 else:
                                     print('Неправельная коммандаfff')
                                     continue
-                                system('cls||clear')
+                                clear()
                                 break
-                        else:
+                        if self.save[0] == 1 : #После подъема
                             print('Обычный труп обычного приключенца, нечего нового')
                             while True:
                                 imp = input('И что же ты будешь делать?\n1.Отойти от трупа\n')
+                                clear()
                                 if inp == '1':
-                                    system('cls||clear')
                                     break
                                 else:
                                     print('Неправельная команда')
                                     continue
                             break
+                        break
 
                 elif imp == '3':#Зеркало
                     while True:
@@ -115,6 +217,7 @@ class secondroom (room):
                             if self.save[0] == 0:
                                 while True:
                                     imp = input('И что же ты будешь делать?\n1.Разозлившись со всей силы рукой ударить зеркало\n2.Сдержать агрессию и отойти от зеркала\n')
+                                    clear()
                                     if imp == '1':
                                         print('Кажется во время удара ты повредил кисть руки а некоторые осколки стекла в нее впились')
                                         player.dmg(5)
@@ -126,9 +229,10 @@ class secondroom (room):
                                         continue
                                     break
                             elif self.save[0] == 1:
-                                print('Взяв меч в руки и посмотр в зеркало ты понимаешь что все твои подсознательные навыки сгинули тудаже куда и латы и физическая форма и приходися с трудом вспоминать как правельно держать оружие')
+                                print('Взяв меч в руки и посмотр в зеркало ты понимаешь что все твои подсознательные навыки сгинули тудаже куда латы и физическая форма, приходися с трудом вспоминать как правельно держать оружие')
                                 while True:
                                     imp = input('И что же ты будешь делать?\n1.Разозлившись со всей силы рукой ударить зеркало\n2. Ударить стекло мечем\n3.Сдержать агрессию и отойти от зеркала')
+                                    clear()
                                     if imp == '1':
                                         print('Кажется во время удара ты повредил кисть руки а некоторые осколки стекла в нее впились')
                                         player.dmg(5)
@@ -146,11 +250,12 @@ class secondroom (room):
                         if self.save[1] == 1: # После разбития
                             print('За тем что раньше было стекло есть небольшая ниша, внутри которой лежит ключ')
                             while True:
-                                inp = input('И что же ты будешь делать?\n1.Взять ключ \n2.Отойти от зеркала')
+                                inp = input('И что же ты будешь делать?\n1.Взять ключ \n2.Отойти от зеркала\n')
+                                clear()
                                 if inp == '1':
                                     player.grab('Ржавый ключ')
                                     self.save[1] = 2
-                                elif imp == '2':
+                                elif inp == '2':
                                     pass
                                 else:
                                     print('Неправельная комманда')
@@ -161,18 +266,23 @@ class secondroom (room):
                             print('Пустая ниша, валяющиеся вокруг обломки стекла,ничего нового')
                             while True:
                                 inp = input('И что же ты будешь делать?\n1.Отойти от зеркала\n')
+                                clear()
                                 if inp == '1':
                                     pass
                                 else:
                                     print('Неправельная команда')
                                     continue
                                 break
-                        system('cls||clear')
                         break
+
+                elif imp == '4': #Возвращение
+                    player.room = 1
 
                 elif imp == 'инвентарь':
                     player.inventory()
 
                 else:
-                    pass
-                system('cls||clear')
+                    print('Неправельная команда')
+
+                if player.room != 2:
+                    break
